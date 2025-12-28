@@ -1,6 +1,6 @@
 # Smart Building Occupancy Prediction
 
-## 📌 Project Overview
+##  Project Overview
 This project implements an end-to-end **data engineering and machine learning pipeline**
 to predict building occupancy using environmental sensor data.
 
@@ -14,7 +14,7 @@ The pipeline follows industry best practices:
 
 ---
 
-## 🎯 Research Questions Addressed
+##  Research Questions Addressed
 
 ### RQ1: How effective are classical ML models in predicting occupancy?
 - Implemented **Logistic Regression** and **Random Forest**
