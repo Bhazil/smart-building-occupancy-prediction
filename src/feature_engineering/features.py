@@ -1,43 +1,77 @@
 import os
 import pandas as pd
 
-# Paths
-CLEAN_DATA_PATH = "data/processed/clean_data.csv"
-FEATURE_DATA_PATH = "data/processed/feature_data.csv"
+# --------------------------------------------------
+# Get project root directory
+# --------------------------------------------------
+PROJECT_ROOT = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "../../")
+)
+
+# --------------------------------------------------
+# Input & output paths
+# --------------------------------------------------
+INPUT_PATH = os.path.join(
+    PROJECT_ROOT, "data", "sample", "occupancy_cleaned.csv"
+)
+
+OUTPUT_PATH = os.path.join(
+    PROJECT_ROOT, "data", "sample", "occupancy_features.csv"
+)
 
 
 def engineer_features(input_path: str, output_path: str):
     """
-    Perform basic time-series feature engineering
+    Creates engineered features from cleaned occupancy data
+    and saves feature dataset.
     """
+
+    # -----------------------------
+    # Load cleaned data
+    # -----------------------------
     df = pd.read_csv(input_path)
 
+    # Normalize column names
+    df.columns = df.columns.str.strip().str.lower()
+
+    print("Columns:", df.columns.tolist())
+    print("Initial shape:", df.shape)
+
     if df.empty:
-        raise ValueError("Clean data file is empty")
+        raise ValueError("Cleaned data is empty")
 
-    # Convert timestamp if exists
-    if "timestamp" in df.columns:
-        df["timestamp"] = pd.to_datetime(df["timestamp"])
-        df["hour"] = df["timestamp"].dt.hour
-        df["day"] = df["timestamp"].dt.day
-        df["weekday"] = df["timestamp"].dt.weekday
+    # -----------------------------
+    # Feature Engineering
+    # -----------------------------
 
-    # Rolling averages (example for sensors)
-    sensor_cols = [col for col in df.columns if col not in ["timestamp", "occupancy"]]
+    # CO2 rolling mean
+    df["co2_rolling_mean"] = (
+        df["co2"]
+        .rolling(window=3, min_periods=1)
+        .mean()
+    )
 
-    for col in sensor_cols:
-        df[f"{col}_rolling_mean"] = df[col].rolling(window=3).mean()
+    # Temperature & humidity interaction
+    df["temp_humidity_interaction"] = (
+        df["temperature"] * df["humidity"]
+    )
 
-    df = df.dropna()
+    # Light level indicator
+    df["light_on"] = (df["light"] > 0).astype(int)
 
-    # Create output directory
+    # -----------------------------
+    # Final checks
+    # -----------------------------
+    print("Shape after feature engineering:", df.shape)
+
+    # Create output directory if needed
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
-    # Save feature-engineered data
+    # Save feature dataset
     df.to_csv(output_path, index=False)
 
     print(f"Feature engineering completed. File saved to: {output_path}")
 
 
 if __name__ == "__main__":
-    engineer_features(CLEAN_DATA_PATH, FEATURE_DATA_PATH)
+    engineer_features(INPUT_PATH, OUTPUT_PATH)
