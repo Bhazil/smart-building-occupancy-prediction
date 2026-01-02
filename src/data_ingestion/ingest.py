@@ -6,9 +6,17 @@ Reads raw occupancy sensor data and saves it in a standardized format.
 import os
 import pandas as pd
 
-# Paths
-RAW_DATA_PATH = "data/sample/occupancy_raw.csv"
-OUTPUT_PATH = "data/sample/occupancy_ingested.csv"
+PROJECT_ROOT = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "../..")
+)
+
+RAW_DATA_PATH = os.path.join(
+    PROJECT_ROOT, "data", "sample", "occupancy_raw.csv"
+)
+
+OUTPUT_PATH = os.path.join(
+    PROJECT_ROOT, "data", "sample", "occupancy_ingested.csv"
+)
 
 
 def ingest_data(input_path: str, output_path: str):
