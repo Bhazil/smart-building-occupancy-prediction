@@ -117,6 +117,4 @@ smart-building-occupancy-prediction/
     └── pipeline_execution.log              # Airflow & script logs
 
 
-'''
-
 
