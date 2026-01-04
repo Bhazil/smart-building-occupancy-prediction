@@ -320,9 +320,7 @@ Both models were trained using the same feature-engineered dataset to ensure a f
 | Logistic Regression  | 1.0  | 1.0   | 1.0   | 1.0   |
 | Random Forest  | 1.0   | 1.0  | 1.0  | 1.0    |
 
-Note: **Disclaimer**
-
-The evaluation results reported in this project are based on a relatively small and highly structured dataset. Due to the strong correlation between environmental sensor features (such as CO₂ levels, temperature, and motion) and building occupancy, the classification task becomes comparatively straightforward. As a result, the models achieved near-perfect performance on the test split. These results reflect the nature of the dataset and feature relevance rather than unrealistic or generalized model performance.
+Note: The evaluation results reported in this project are based on a relatively small and highly structured dataset. Due to the strong correlation between environmental sensor features (such as CO₂ levels, temperature, and motion) and building occupancy, the classification task becomes comparatively straightforward. As a result, the models achieved near-perfect performance on the test split. These results reflect the nature of the dataset and feature relevance rather than unrealistic or generalized model performance.
 
 
 ---
