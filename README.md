@@ -1,6 +1,6 @@
 # Smart Building Occupancy Prediction
 
-## 📌 Project Overview
+## Project Overview
 This project implements an end-to-end **data engineering and machine learning pipeline**
 to predict building occupancy using environmental sensor data.
 
@@ -14,7 +14,7 @@ The pipeline follows industry best practices:
 
 ---
 
-## 🎯 Research Questions Addressed
+## Research Questions Addressed
 
 ### RQ1: How effective are classical machine learning models in predicting occupancy?
 - Implemented **Logistic Regression** and **Random Forest**
@@ -57,7 +57,7 @@ The pipeline follows industry best practices:
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```bash
 smart-building-occupancy-prediction/
@@ -116,5 +116,85 @@ smart-building-occupancy-prediction/
 └── logs/
     └── pipeline_execution.log              # Airflow & script logs
 
+```
 
+## Workflow 
+
+The project workflow is implemented as an end-to-end automated pipeline using **Apache Airflow**.  
+Each stage of the data engineering process is executed as an independent Python script and orchestrated through a DAG.
+
+---
+
+### Data Ingestion
+**Script:** `src/ingestion/load_data.py`
+
+- Loads raw environmental sensor data from CSV files  
+- Validates input schema and file structure  
+- Stores the original dataset in the `data/raw/` directory  
+
+**Airflow Task:** `data_ingestion`
+
+---
+
+### Data Preprocessing
+**Script:** `src/preprocessing/clean_data.py`
+
+- Handles missing values  
+- Corrects data types  
+- Removes noisy and inconsistent sensor readings  
+- Saves cleaned data to `data/processed/`
+
+**Airflow Task:** `data_preprocessing`
+
+---
+
+### Feature Engineering
+**Script:** `src/feature_engineering/build_features.py`
+
+- Performs multi-sensor data fusion  
+- Creates meaningful engineered features  
+- Prepares data for model training  
+- Stores features in `data/features/`
+
+**Airflow Task:** `feature_engineering`
+
+---
+
+### Model Training
+**Scripts:**
+- `src/modeling/train_logistic_regression.py`
+- `src/modeling/train_random_forest.py`
+
+- Trains classical ML models  
+- Saves trained models to the `models/` directory  
+
+**Airflow Task:** `model_training`
+
+---
+
+### Model Evaluation
+**Script:** `src/evaluation/evaluate_models.py`
+
+- Computes Accuracy, Precision, Recall, and F1-score  
+- Generates evaluation tables and figures  
+- Stores results in `reports/`
+
+**Airflow Task:** `model_evaluation`
+
+---
+
+### Pipeline Execution Order
+
+```text
+Data Ingestion
+      ↓
+Data Preprocessing
+      ↓
+Feature Engineering
+      ↓
+Model Training
+      ↓
+Model Evaluation
+
+```
 
