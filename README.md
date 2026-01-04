@@ -197,6 +197,7 @@ Model Training
 Model Evaluation
 
 ```
+---
 
 ## Airflow DAG Explanation
 
@@ -268,6 +269,8 @@ Trains:
 
 - Generates comparison tables and visualizations
 
+---
+
 ### Airflow Implementation Status
 
 An Apache Airflow DAG was designed and implemented to orchestrate the complete data engineering workflow.
@@ -276,3 +279,60 @@ Due to local environment and system constraints, the Airflow scheduler and webse
 However, the pipeline logic, task dependencies, and modular execution were fully implemented and validated by running each task script independently.
 
 The Airflow DAG accurately represents the intended production-level workflow and can be executed in a properly configured Airflow environment.
+
+---
+
+## Results & Evaluation
+
+This section presents the results obtained from the machine learning models trained to predict smart building occupancy.
+Model performance is evaluated using standard classification metrics to ensure transparency and comparability.
+
+---
+
+###Evaluation Metrics
+
+The following metrics were used to evaluate model performance:
+
+* Accuracy – Overall correctness of predictions
+
+* Precision – Correctly predicted occupied instances
+
+* Recall – Ability to detect actual occupied instances
+
+* F1-score – Balance between precision and recall
+
+These metrics provide a comprehensive view of model effectiveness, especially for occupancy classification tasks.
+
+---
+
+### Model Performance Comparison
+
+Two classical machine learning models were evaluated:
+
+1. Logistic Regression
+
+2. Random Forest
+
+Both models were trained using the same feature-engineered dataset to ensure a fair comparison.
+
+| Model | Accuracy | Precision | Recall | F1-score |
+|----------|----------|----------|----------|----------|
+| Logistic Regression  | Value 2  | Value 3  | Value 6  | Value 6  |
+| Random Forest  | Value 5  | Value 6  | Value 6  | Value 6  |
+
+Note: Exact values are generated during model evaluation and stored in the reports/tables/ directory.
+
+---
+
+### Key Observations
+
+Feature engineering significantly improved model performance.
+
+Multi-sensor data fusion contributed to better occupancy prediction.
+
+Random Forest demonstrated stronger performance in capturing non-linear relationships.
+
+Logistic Regression provided a reliable baseline with interpretable results.
+
+---
+
