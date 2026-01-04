@@ -57,6 +57,66 @@ The pipeline follows industry best practices:
 
 ---
 
-## 🗂 Project Structure
+## 📁 Project Structure
+
+```bash
+smart-building-occupancy-prediction/
+│
+├── README.md
+├── requirements.txt
+├── .gitignore
+│
+├── data/
+│   ├── raw/
+│   │   └── occupancy_sensor_data.csv     # Original sensor dataset
+│   │
+│   ├── processed/
+│   │   └── cleaned_data.csv               # Cleaned & validated data
+│   │
+│   └── features/
+│       └── engineered_features.csv        # Feature-engineered dataset
+│
+├── src/
+│   ├── ingestion/
+│   │   └── load_data.py                   # Load raw sensor data
+│   │
+│   ├── preprocessing/
+│   │   └── clean_data.py                  # Handle missing values & data types
+│   │
+│   ├── feature_engineering/
+│   │   └── build_features.py              # Sensor fusion & feature creation
+│   │
+│   ├── modeling/
+│   │   ├── train_logistic_regression.py   # Classical ML model
+│   │   ├── train_random_forest.py          # Tree-based ML model
+│   │   └── predict.py                     # Occupancy prediction
+│   │
+│   └── evaluation/
+│       └── evaluate_models.py             # Accuracy, Precision, Recall, F1-score
+│
+├── dags/
+│   └── smart_building_occupancy_pipeline.py
+│                                          # Apache Airflow DAG (end-to-end)
+│
+├── notebooks/
+│   └── exploratory_data_analysis.ipynb    # EDA & sensor behavior analysis
+│
+├── models/
+│   ├── logistic_regression_model.pkl
+│   └── random_forest_model.pkl
+│
+├── reports/
+│   ├── figures/
+│   │   ├── model_comparison.png            # RQ1 comparison figure
+│   │   └── feature_importance.png          # RQ3 visualization
+│   │
+│   └── tables/
+│       └── evaluation_metrics.csv          # RQ4 evaluation table
+│
+└── logs/
+    └── pipeline_execution.log              # Airflow & script logs
+
+
+'''
 
 
