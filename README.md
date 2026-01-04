@@ -198,3 +198,81 @@ Model Evaluation
 
 ```
 
+## Airflow DAG Explanation
+
+The project workflow is orchestrated using Apache Airflow through a Directed Acyclic Graph (DAG).
+Each node in the DAG represents a distinct stage of the data engineering pipeline, ensuring modular execution, fault isolation, and reproducibility.
+
+**DAG File**
+
+Location: dags/smart_building_occupancy_pipeline.py
+
+DAG ID: smart_building_occupancy_pipeline
+
+Trigger Type: Manual
+
+Execution Mode: Sequential task dependencies
+
+🔗 DAG Tasks and Responsibilities
+1️. data_ingestion
+
+- Executes src/ingestion/load_data.py
+
+- Loads raw environmental sensor data from CSV files
+
+- Stores original data in data/raw/
+
+2️. data_preprocessing
+
+- Executes src/preprocessing/clean_data.py
+
+- Handles missing values and data inconsistencies
+
+- Outputs cleaned data to data/processed/
+
+3️. feature_engineering
+
+- Executes src/feature_engineering/build_features.py
+
+- Performs multi-sensor data fusion
+
+-Generates engineered features for modeling
+
+- Saves output to data/features/
+
+4️. model_training
+
+- Executes model training scripts
+
+Trains:
+
+- Logistic Regression
+
+- Random Forest
+
+- Stores trained models in the models/ directory
+
+5️. model_evaluation
+
+- Executes src/evaluation/evaluate_models.py
+
+- Computes evaluation metrics:
+
+- Accuracy
+
+- Precision
+
+- Recall
+
+- F1-score
+
+- Generates comparison tables and visualizations
+
+### Airflow Implementation Status
+
+An Apache Airflow DAG was designed and implemented to orchestrate the complete data engineering workflow.
+
+Due to local environment and system constraints, the Airflow scheduler and webserver could not be executed during development.  
+However, the pipeline logic, task dependencies, and modular execution were fully implemented and validated by running each task script independently.
+
+The Airflow DAG accurately represents the intended production-level workflow and can be executed in a properly configured Airflow environment.
